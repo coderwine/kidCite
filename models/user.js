@@ -1,6 +1,3 @@
-// const sequelize = require("../db");
-// const { DataTypes, Sequelize } = require("sequelize/types");
-
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('user', {
         firstName: {
@@ -14,25 +11,46 @@ module.exports = (sequelize, DataTypes) => {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true
+            // unique: true,
+            unique: {
+                args: true,
+                msg: 'Please input a unique email address.'
+            },
+            validate: {
+                isEmail: true,
+                notEmpty: true
+            }
         },
         password: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notEmpty: true,
+                // len: [8,20]
+            }
         },
         role: {
-            type: DataTypes.ENUM,
-            values: ['user', 'admin'],
+            type: DataTypes.ENUM(
+                'user', 'admin',
+            ),
             defaultValue: 'user',
             // allowNull: false
         },
+        bio: {
+            type: DataTypes.TEXT('long'),
+            allowNull: true,
+        },
         id: {
-            primaryKey: true,
             type: DataTypes.UUID,
-            defaultValue: sequelize.UUIDV1,
-            // unique: true,
-            // allowNull: false
+            defaultValue: DataTypes.UUIDV4,
+            primaryKey: true,
+            // validate: {
+                // isUUID: 4,
+                // notEmpty: true
+            // }
         },
     })
+
     return User;
+
 }
