@@ -13,6 +13,17 @@ sequelize.authenticate().then(
     err => console.log(err)
 );
 
-module.exports = sequelize
+//! DB Associations:
+const User = sequelize.import('./models/user');
+const Kid = sequelize.import('./models/kid');
+const Quote = sequelize.import('./models/quote');
 
-//! DB ASSOCIATIONS GO HERE:
+
+User.hasMany(Kid);
+Kid.belongsTo(User);
+
+Kid.hasMany(Quote);
+Quote.belongsTo(Kid);
+
+
+module.exports = sequelize

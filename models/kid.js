@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
 
-    const Kids = sequelize.define('kids', {
+    const Kid = sequelize.define('kid', {
         firstName: {
             type: DataTypes.STRING,
             allowNull: false
@@ -21,9 +21,9 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true
-        } 
+        },
     })
 
-    return Kids
+    return Kid;
 
 }

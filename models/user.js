@@ -1,4 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
+
     const User = sequelize.define('user', {
         firstName: {
             type: DataTypes.STRING,
@@ -11,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
-            // unique: true,
             unique: {
                 args: true,
                 msg: 'Please input a unique email address.'
@@ -43,12 +43,9 @@ module.exports = (sequelize, DataTypes) => {
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
-            primaryKey: true,
-            // validate: {
-                // isUUID: 4,
-                // notEmpty: true
-            // }
-        },
+            primaryKey: true
+        }
+
     })
 
     return User;
