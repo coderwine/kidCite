@@ -8,6 +8,7 @@ const sequelize = require('./db');
 //! CONTROLLERS
 const user = require('./controllers/usercontroller');
 const kid = require('./controllers/kidcontroller');
+const quote = require('./controllers/quotecontroller');
 
 //! DATABASE
 sequelize.sync();
@@ -21,6 +22,7 @@ app.use(require('./middleware/headers'));
 app.use('/', user);
 // app.use(require('./middleware/validate-session'))
 app.use('/kids', kid);
+app.use('/quotes', quote);
 
 
 app.listen(process.env.PORT, () => {

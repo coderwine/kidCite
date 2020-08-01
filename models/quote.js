@@ -21,6 +21,13 @@ module.exports = (sequelize, DataTypes) => {
         possAnswer: {
             type: DataTypes.STRING(255)
         },
+        refKid: {
+            type: DataTypes.UUID,
+            validate: {
+                isUUID: 4
+            },
+            allowNull: false
+        },
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,

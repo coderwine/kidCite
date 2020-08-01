@@ -1,7 +1,10 @@
 const router = require('express').Router();
+
+//* MODELS
 const Kid = require('../db').import('../models/kid');
 // const Quote = require('../db').import('../models/quote');
 
+//* Validation
 const valSession = require('../middleware/validate-session');
 
 //! POST Kid
@@ -16,7 +19,7 @@ router.post('/add_kid', valSession, (req, res) => {
     }
 
     Kid.create(kidCreate)
-    .then(info => console.log(json(info)))
+    // .then(info => console.log(json(info)))
     .then(kid => res.status(200).json(kid))
     .catch(err => res.status(500).json({ 
         error: err,
@@ -27,7 +30,7 @@ router.post('/add_kid', valSession, (req, res) => {
 
 //! GET ALL Kids
 router.get('/', (req, res) => {
-    Kid.findAll()
+    Kid.findAll({include: 'user'})
         .then(kid => res.status(200).json(kid))
         .catch(err => res.status(500).json({error: err}))
 })
@@ -50,7 +53,8 @@ router.put('/:id', valSession, (req,res) => {
     Kid.update(req.body, {
         where: {
             id: req.params.id
-        }
+        },
+        include: 'user'
     })
     .then(kid => res.status(200).json({kid: kid}))
     .catch(err => res.status(500).json({error: err}))
@@ -62,7 +66,8 @@ router.delete('/:id', valSession, (req, res) => {
     Kid.destroy({
         where: {
             id: req.params.id
-        }
+        },
+        include: 'user'
     })
     .then(kid => res.status(200).json({
         kid: kid,
@@ -70,35 +75,6 @@ router.delete('/:id', valSession, (req, res) => {
     }))
     .catch(err => res.status(500).json({error: err}))
 })
-// need to fix so users can't delete kids that are NOT theirs
-
-//*************************/
-//? POST Quote
-router.post('/add_quote', valSession, (req, res) => {
-    
-    const newQuote = {
-        title: req.body.title,
-        desc: req.body.desc,
-        date: req.body.date,
-        randomQuestion: req.body.randomQuestion,
-        possAnswer: req.body.possAnswer,
-        kidId: req.kid.id
-    }
-    
-    Quote.create(newQuote)
-        .then(quote => res.status(200).json({
-            quote: quote
-        }))
-        .catch(err => res.status(500).json({error: err}))
-})
-
-//? GET ALL Quotes
-
-//? GET Quote by :id
-
-//? PUT (Update) Quote :id
-
-//? DELETE Quote
 
 //***********************/
 //! EXPORT 

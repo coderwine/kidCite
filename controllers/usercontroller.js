@@ -78,11 +78,9 @@ router.put('/user-update/:id', valSession, (req, res) => {
     User.update(req.body, {
         where: {
             id: req.params.id,
-            // owner: req.user.id
-        },
-        include: 'kid'
+        }
     })
-    .then(info => res.send(info))
+    // .then(info => res.send(info))
     .then(user => res.status(200).json(user))
     .catch(err => res.status(500).json({ 
         error: err,
@@ -90,7 +88,19 @@ router.put('/user-update/:id', valSession, (req, res) => {
     }))
 })
 
-
 //! DELETE
+router.delete('/:id', valSession, (req,res) => {
+    User.destroy({
+        where: { id: req.params.id }
+    })
+    .then(user => res.status(200).json({
+        user: user,
+        msg: 'User Deleted!'
+    }))
+    .catch(err => res.status(500).json({
+        error: err,
+        msg: 'Broken Delete Error!'
+    }))
+})
 
 module.exports = router;

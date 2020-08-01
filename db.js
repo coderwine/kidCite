@@ -22,8 +22,8 @@ const Quote = sequelize.import('./models/quote');
 User.hasMany(Kid);
 Kid.belongsTo(User);
 
-Kid.hasMany(Quote);
-Quote.belongsTo(Kid);
+User.hasMany(Quote);
+Quote.belongsTo(User);
 
 
 module.exports = sequelize
