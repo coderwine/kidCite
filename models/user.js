@@ -37,7 +37,8 @@ module.exports = (sequelize, DataTypes) => {
             // allowNull: false
         },
         bio: {
-            type: DataTypes.TEXT('long'),
+            // type: DataTypes.TEXT('long'),
+            type: DataTypes.TEXT(),
             allowNull: true,
         },
         id: {
