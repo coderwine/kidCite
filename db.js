@@ -10,7 +10,7 @@ const Sequelize = require('sequelize');
 //! Heroku Deploy
 const sequelize = new Sequelize(process.env.HDB_URL, {
     dialect: 'postgres'
-})
+})  
 
 //*SPECIAL CHARACTER ENCODED URL
 // const sequelize = new Seuelize(process.env.HDB_URL || `postgresql://postgres:${encodeURIComponent(proess.env.PASS)}@localhost/kidcite`), {
@@ -45,5 +45,6 @@ Kid.belongsTo(User);
 User.hasMany(Quote);
 Quote.belongsTo(User);
 
-
 module.exports = sequelize
+
+//DB sent to Heroku
